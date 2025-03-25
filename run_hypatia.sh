@@ -2,7 +2,7 @@
 
 # ###### Zona de Parámetros de solicitud de recursos a SLURM ############################
 #
-#SBATCH --job-name=sbi_1    #Nombre del job
+#SBATCH --job-name=sbi    #Nombre del job
 #SBATCH -p gpu                   #Cola a usar, Default=short (Ver colas y límites en /hpcfs/shared/README/partitions.txt)
 #SBATCH -N 1                     #Nodos requeridos, Default=1
 #SBATCH -n 1                     #Tasks paralelos, recomendado para MPI, Default=1
@@ -11,7 +11,7 @@
 #SBATCH --time=15-00:00:00       #Tiempo máximo de corrida, Default=2 horas
 #SBATCH --mail-user=je.alfonso1@uniandes.edu.co
 #SBATCH --mail-type=ALL
-#SBATCH -o 1_estimation.o%j          #Nombre de archivo de salida
+#SBATCH -o posterior.%j          #Nombre de archivo de salida
 
 
 ########################################################################################
