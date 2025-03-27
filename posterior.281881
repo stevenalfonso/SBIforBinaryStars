@@ -1,0 +1,65 @@
+Date: Mon Mar 24 20:12:25 -05 2025
+Holoviews not imported. Some visualizations will not be available.
+PyMultiNest not imported.  MultiNest fits will not work.
+2025-03-24 20:13:46.393839: I tensorflow/core/util/port.cc:113] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2025-03-24 20:13:49.005972: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 AVX512F AVX512_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2025-03-24 20:14:06.815294: W tensorflow/compiler/tf2tensorrt/utils/py_utils.cc:38] TF-TRT Warning: Could not find TensorRT
+  0%|          | 0/100000 [00:00<?, ?it/s] 22%|██▏       | 21564/100000 [07:23<26:53, 48.62it/s] 22%|██▏       | 21564/100000 [07:40<26:53, 48.62it/s] 39%|███▊      | 38563/100000 [13:09<20:57, 48.87it/s] 39%|███▊      | 38563/100000 [13:20<20:57, 48.87it/s] 52%|█████▏    | 52055/100000 [17:38<16:10, 49.39it/s] 52%|█████▏    | 52055/100000 [17:50<16:10, 49.39it/s] 62%|██████▏   | 62312/100000 [21:06<12:43, 49.35it/s] 62%|██████▏   | 62312/100000 [21:20<12:43, 49.35it/s] 70%|███████   | 70370/100000 [23:50<10:01, 49.29it/s] 70%|███████   | 70370/100000 [24:10<10:01, 49.29it/s] 77%|███████▋  | 76785/100000 [25:58<07:49, 49.44it/s] 77%|███████▋  | 76785/100000 [26:10<07:49, 49.44it/s] 82%|████████▏ | 81840/100000 [27:39<06:06, 49.60it/s] 82%|████████▏ | 81840/100000 [27:50<06:06, 49.60it/s] 86%|████████▌ | 85683/100000 [28:58<04:49, 49.45it/s] 86%|████████▌ | 85683/100000 [29:10<04:49, 49.45it/s] 89%|████████▉ | 88754/100000 [30:00<03:47, 49.46it/s] 89%|████████▉ | 88754/100000 [30:10<03:47, 49.46it/s] 91%|█████████ | 91201/100000 [30:49<02:57, 49.54it/s] 91%|█████████ | 91201/100000 [31:00<02:57, 49.54it/s] 93%|█████████▎| 93082/100000 [31:27<02:19, 49.49it/s] 93%|█████████▎| 93082/100000 [31:40<02:19, 49.49it/s] 95%|█████████▍| 94562/100000 [31:57<01:49, 49.44it/s] 95%|█████████▍| 94562/100000 [32:10<01:49, 49.44it/s] 96%|█████████▌| 95765/100000 [32:21<01:25, 49.64it/s] 97%|█████████▋| 96693/100000 [32:39<01:06, 49.73it/s] 97%|█████████▋| 96693/100000 [32:50<01:06, 49.73it/s] 97%|█████████▋| 97440/100000 [32:54<00:51, 49.99it/s] 98%|█████████▊| 97955/100000 [33:05<00:41, 49.49it/s] 98%|█████████▊| 98370/100000 [33:14<00:33, 49.09it/s] 99%|█████████▊| 98709/100000 [33:21<00:26, 48.86it/s] 99%|█████████▉| 99002/100000 [33:27<00:20, 49.19it/s] 99%|█████████▉| 99202/100000 [33:31<00:16, 48.69it/s] 99%|█████████▉| 99364/100000 [33:35<00:13, 48.30it/s]100%|█████████▉| 99500/100000 [33:37<00:10, 48.21it/s]100%|█████████▉| 99607/100000 [33:40<00:08, 48.09it/s]100%|█████████▉| 99678/100000 [33:41<00:06, 47.02it/s]100%|█████████▉| 99737/100000 [33:43<00:05, 46.05it/s]100%|█████████▉| 99793/100000 [33:44<00:04, 45.93it/s]100%|█████████▉| 99838/100000 [33:45<00:03, 45.80it/s]100%|█████████▉| 99880/100000 [33:46<00:02, 46.64it/s]100%|█████████▉| 99900/100000 [33:47<00:02, 44.81it/s]100%|█████████▉| 99926/100000 [33:47<00:01, 45.32it/s]100%|█████████▉| 99939/100000 [33:48<00:01, 43.40it/s]100%|█████████▉| 99961/100000 [33:48<00:00, 45.71it/s]100%|█████████▉| 99974/100000 [33:48<00:00, 45.99it/s]100%|█████████▉| 99980/100000 [33:48<00:00, 43.69it/s]100%|█████████▉| 99986/100000 [33:49<00:00, 37.41it/s]100%|█████████▉| 99992/100000 [33:49<00:00, 33.36it/s]100%|█████████▉| 99996/100000 [33:50<00:00, 26.57it/s]100%|█████████▉| 99999/100000 [33:50<00:00, 23.99it/s]100%|██████████| 100000/100000 [33:51<00:00, 49.22it/s]
+Running 100000 simulations
+Running 78436 simulations
+Running 61437 simulations
+Running 47945 simulations
+Running 37688 simulations
+Running 29630 simulations
+Running 23215 simulations
+Running 18160 simulations
+Running 14317 simulations
+Running 11246 simulations
+Running 8799 simulations
+Running 6918 simulations
+Running 5438 simulations
+Running 4235 simulations
+Running 3307 simulations
+Running 2560 simulations
+Running 2045 simulations
+Running 1630 simulations
+Running 1291 simulations
+Running 998 simulations
+Running 798 simulations
+Running 636 simulations
+Running 500 simulations
+Running 393 simulations
+Running 322 simulations
+Running 263 simulations
+Running 207 simulations
+Running 162 simulations
+Running 120 simulations
+Running 100 simulations
+Running 74 simulations
+Running 61 simulations
+Running 39 simulations
+Running 26 simulations
+Running 20 simulations
+Running 16 simulations
+Running 14 simulations
+Running 11 simulations
+Running 8 simulations
+Running 8 simulations
+Running 6 simulations
+Running 4 simulations
+Running 2 simulations
+Running 1 simulations
+Running 1 simulations
+Running 1 simulations
+Running 1 simulations
+Running 1 simulations
+Running 1 simulations
+Running 1 simulations
+Running 1 simulations
+Running 1 simulations
+Running 1 simulations
+Running 1 simulations
+Running 1 simulations
+ Training neural network. Epochs trained: 1 Training neural network. Epochs trained: 2 Training neural network. Epochs trained: 3 Training neural network. Epochs trained: 4 Training neural network. Epochs trained: 5 Training neural network. Epochs trained: 6 Training neural network. Epochs trained: 7 Training neural network. Epochs trained: 8 Training neural network. Epochs trained: 9 Training neural network. Epochs trained: 10 Training neural network. Epochs trained: 11 Training neural network. Epochs trained: 12 Training neural network. Epochs trained: 13 Training neural network. Epochs trained: 14 Training neural network. Epochs trained: 15 Training neural network. Epochs trained: 16 Training neural network. Epochs trained: 17 Training neural network. Epochs trained: 18 Training neural network. Epochs trained: 19 Training neural network. Epochs trained: 20 Training neural network. Epochs trained: 21 Training neural network. Epochs trained: 22 Training neural network. Epochs trained: 23 Training neural network. Epochs trained: 24 Training neural network. Epochs trained: 25 Training neural network. Epochs trained: 26 Training neural network. Epochs trained: 27 Training neural network. Epochs trained: 28 Training neural network. Epochs trained: 29 Training neural network. Epochs trained: 30 Training neural network. Epochs trained: 31 Training neural network. Epochs trained: 32 Training neural network. Epochs trained: 33 Training neural network. Epochs trained: 34 Training neural network. Epochs trained: 35 Training neural network. Epochs trained: 36 Training neural network. Epochs trained: 37 Training neural network. Epochs trained: 38 Training neural network. Epochs trained: 39 Training neural network. Epochs trained: 40 Training neural network. Epochs trained: 41 Training neural network. Epochs trained: 42 Training neural network. Epochs trained: 43 Training neural network. Epochs trained: 44 Training neural network. Epochs trained: 45 Training neural network. Epochs trained: 46 Training neural network. Epochs trained: 47 Training neural network. Epochs trained: 48 Training neural network. Epochs trained: 49 Training neural network. Epochs trained: 50 Training neural network. Epochs trained: 51 Training neural network. Epochs trained: 52 Training neural network. Epochs trained: 53 Training neural network. Epochs trained: 54 Training neural network. Epochs trained: 55 Training neural network. Epochs trained: 56 Training neural network. Epochs trained: 57 Training neural network. Epochs trained: 58 Training neural network. Epochs trained: 59 Training neural network. Epochs trained: 60 Training neural network. Epochs trained: 61 Training neural network. Epochs trained: 62 Training neural network. Epochs trained: 63 Training neural network. Epochs trained: 64 Training neural network. Epochs trained: 65 Neural network successfully converged after 65 epochs.Saved posterior to ./data/train_posterior.pkl
+Sbatch executed
