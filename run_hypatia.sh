@@ -7,7 +7,7 @@
 #SBATCH -N 1                     #Nodos requeridos, Default=1
 #SBATCH -n 1                     #Tasks paralelos, recomendado para MPI, Default=1
 #SBATCH --cpus-per-task=4        #Cores requeridos por task, recomendado para multi-thread, Default=1
-#SBATCH --mem=24000              #Memoria en Mb por CPU, Default=2048
+#SBATCH --mem=16000              #Memoria en Mb por CPU, Default=2048
 #SBATCH --time=15-00:00:00       #Tiempo máximo de corrida, Default=2 horas
 #SBATCH --mail-user=je.alfonso1@uniandes.edu.co
 #SBATCH --mail-type=ALL
@@ -26,4 +26,5 @@ python3 sbi_train.py
 
 deactivate
 
-echo -e "Sbatch executed"
+date=`/bin/date`
+echo "Date: "$date
