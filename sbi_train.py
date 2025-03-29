@@ -41,7 +41,7 @@ from sbi.utils.user_input_checks import prepare_for_sbi
 
 age_bounds = [0.1, 10.0]          # Gyr
 mass_bounds = [0.3, 3.0]          # M1
-metallicity_bounds = [-0.5, 0.5]  # [Fe/H] forced metallicity distribution
+metallicity_bounds = [-1.5, 0.5]  # [Fe/H] forced metallicity distribution
 
 num_simulations = 50_000
 num_samples = 10_000
@@ -51,7 +51,7 @@ prior = [
                             AffineTransform(loc=tt([mass_bounds[0]]), scale=tt([mass_bounds[1]]))),                   # M1
     Uniform(tt([0.]), tt([1.])),                                                                                      # q
     Uniform(tt([age_bounds[0]]), tt([age_bounds[1]])),                                                                # age
-    TransformedDistribution(Normal(loc=tt([0.06]), scale=tt([0.1])), \
+    TransformedDistribution(Normal(loc=tt([0.0]), scale=tt([0.5])), \
                             AffineTransform(loc=tt([metallicity_bounds[0]]), scale=tt([metallicity_bounds[1]])))      # [Fe/H]
     ]
 
@@ -125,7 +125,7 @@ df_cluster['g_mag'] = df_cluster['phot_g_mean_mag'] - 5* np.log10(1000/df_cluste
 df_cluster['bp_mag'] = df_cluster['phot_bp_mean_mag'] - 5* np.log10(1000/df_cluster['parallax']) + 5
 df_cluster['rp_mag'] = df_cluster['phot_rp_mean_mag'] - 5* np.log10(1000/df_cluster['parallax']) + 5
 
-print(len(df_cluster))
+print('before removing stars outside boundaries', len(df_cluster))
 print('df g ranges: ', df_cluster['g_mag'].min(), df_cluster['g_mag'].max())
 print('df bp ranges: ', df_cluster['bp_mag'].min(), df_cluster['bp_mag'].max())
 print('df rp ranges: ', df_cluster['rp_mag'].min(), df_cluster['rp_mag'].max())
@@ -135,6 +135,7 @@ cond_g = (df_cluster['g_mag'] >= min_g_mag_simulated) & (df_cluster['g_mag'] <= 
 cond_bp = (df_cluster['bp_mag'] >= min_bp_mag_simulated) & (df_cluster['bp_mag'] <= max_bp_mag_simulated)
 cond_rp = (df_cluster['rp_mag'] >= min_rp_mag_simulated) & (df_cluster['rp_mag'] <= max_rp_mag_simulated)
 bound_df_cluster = df_cluster[cond_g & cond_bp & cond_rp].reset_index(drop=True)
+print('after removing stars outside boundaries', len(bound_df_cluster))
 
 L = 4 # number of parameters
 num_injections = len(bound_df_cluster)
