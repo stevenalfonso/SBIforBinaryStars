@@ -41,9 +41,9 @@ from sbi.utils.user_input_checks import prepare_for_sbi
 
 age_bounds = [0.1, 10.0]          # Gyr
 mass_bounds = [0.3, 3.0]          # M1
-metallicity_bounds = [-1.5, 0.5]  # [Fe/H]
+metallicity_bounds = [-0.5, 0.5]  # [Fe/H] forced metallicity distribution
 
-num_simulations = 100_000
+num_simulations = 50_000
 num_samples = 10_000
 
 prior = [
@@ -51,7 +51,7 @@ prior = [
                             AffineTransform(loc=tt([mass_bounds[0]]), scale=tt([mass_bounds[1]]))),                   # M1
     Uniform(tt([0.]), tt([1.])),                                                                                      # q
     Uniform(tt([age_bounds[0]]), tt([age_bounds[1]])),                                                                # age
-    TransformedDistribution(Normal(loc=tt([0.0]), scale=tt([0.5])), \
+    TransformedDistribution(Normal(loc=tt([0.06]), scale=tt([0.1])), \
                             AffineTransform(loc=tt([metallicity_bounds[0]]), scale=tt([metallicity_bounds[1]])))      # [Fe/H]
     ]
 
@@ -143,7 +143,6 @@ parameters = np.empty((num_injections, num_samples, L))
 
 for i in tqdm(range(num_injections)):
     observation_per_star = bound_df_cluster[['g_mag','bp_mag','rp_mag']].to_numpy()[i]
-    print(observation_per_star)
     parameters[i] = posterior.sample((num_samples,), x=torch.tensor(observation_per_star), show_progress_bars=False)
     
 
@@ -156,6 +155,6 @@ for i in range(len(bound_df_cluster)):
                             'fe_h': values[3]
                             }
     
-with open('./data/estimations.json', 'w') as f:
+with open(f'./data/estimations_{cluster}.json', 'w') as f:
     json.dump(final_parameters, f, indent=4)
     
