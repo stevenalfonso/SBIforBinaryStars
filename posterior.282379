@@ -1,0 +1,18 @@
+Date: Sat Mar 29 17:31:55 -05 2025
+Holoviews not imported. Some visualizations will not be available.
+PyMultiNest not imported.  MultiNest fits will not work.
+2025-03-29 17:32:11.503119: I tensorflow/core/util/port.cc:113] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2025-03-29 17:32:12.139217: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 AVX512F AVX512_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2025-03-29 17:32:14.719720: W tensorflow/compiler/tf2tensorrt/utils/py_utils.cc:38] TF-TRT Warning: Could not find TensorRT
+Pre-loading posterior from ./data/train_posterior.pkl
+g_mag ranges from -3.538388252258301 to 9.683841705322266
+bp_mag ranges from -3.1618545055389404 to 10.540409088134766
+rp_mag ranges from -4.110992431640625 to 8.798665046691895
+Estimations for cluster NGC_6475
+before removing stars outside boundaries 1090
+df g ranges:  -1.3546633337565437 11.84605627183893
+df bp ranges:  -1.4205723337565441 13.43411965455219
+df rp ranges:  -1.2859894235337999 10.550806271838931
+after removing stars outside boundaries 749
+  0%|          | 0/749 [00:00<?, ?it/s]  0%|          | 1/749 [00:46<9:41:10, 46.62s/it]  0%|          | 2/749 [01:27<8:55:26, 43.01s/it]  0%|          | 3/749 [02:21<9:56:42, 47.99s/it]  1%|          | 4/749 [03:04<9:33:52, 46.22s/it]  1%|          | 5/749 [03:46<9:15:01, 44.76s/it]
