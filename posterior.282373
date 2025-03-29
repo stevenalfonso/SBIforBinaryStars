@@ -35,4 +35,4 @@ Estimations for cluster NGC_6475
 df g ranges:  -1.3546633337565437 11.84605627183893
 df bp ranges:  -1.4205723337565441 13.43411965455219
 df rp ranges:  -1.2859894235337999 10.550806271838931
-  0%|          | 0/779 [00:00<?, ?it/s]
+  0%|          | 0/779 [00:00<?, ?it/s]slurmstepd: error: *** JOB 282373 ON nodei-gpu-1 CANCELLED AT 2025-03-29T14:59:57 ***
