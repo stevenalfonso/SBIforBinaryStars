@@ -33,12 +33,11 @@ def simulator(theta):
 
 ############ Set priors.
 
-from torch.distributions import (Uniform, Exponential, Normal)
+from torch.distributions import (Uniform, Exponential, Normal, Beta, Pareto)
 from torch.distributions.transforms import AffineTransform
 from torch.distributions.transformed_distribution import TransformedDistribution
 from torch import tensor as tt
 from sbi.utils.user_input_checks import prepare_for_sbi
-
 
 age_bounds = [0.2, 10.0]          # Gyr
 mass_bounds = [0.3, 3.0]          # M1
@@ -56,21 +55,27 @@ num_samples = 10_000
 #                             AffineTransform(loc=tt([metallicity_bounds[0]]), scale=tt([metallicity_bounds[1]])))      # [Fe/H]
 #     ]
 
-bounds = np.array([
-    [mass_bounds[0],  mass_bounds[1]],                           # M1
-    [0,      1],                                                 # q
-    [age_bounds[0],   age_bounds[1]],                            # (Gyr)
-    [metallicity_bounds[0], metallicity_bounds[1]]               # metallicity
-    ])
+prior = [
+        TransformedDistribution(Pareto(scale=tt([1.]), alpha=tt([5.])), AffineTransform(loc=tt([0.8]), scale=tt([1.]))), # M1
+        Uniform(tt([0.]), tt([1.])),                                                                                     # q
+        Uniform(tt([1.]), tt([10.])),                                                                                    # age
+        TransformedDistribution(Beta(tt([10.]), tt([2.])), AffineTransform(loc=tt([-1.5]), scale=tt([0.5])))             # [Fe/H]
+        ]
 
-bounds = torch.tensor(bounds)
-prior = utils.BoxUniform(low=bounds.T[0], high=bounds.T[1])
+# bounds = np.array([
+#     [mass_bounds[0],  mass_bounds[1]],                           # M1
+#     [0,      1],                                                 # q
+#     [age_bounds[0],   age_bounds[1]],                            # (Gyr)
+#     [metallicity_bounds[0], metallicity_bounds[1]]               # metallicity
+#     ])
+# bounds = torch.tensor(bounds)
+# prior = utils.BoxUniform(low=bounds.T[0], high=bounds.T[1])
 
 sbi_simulator, sbi_prior = prepare_for_sbi(simulator, prior)
 inference = method(sbi_prior)
 
 
-posterior_path = "./data/train_posterior_uniform.pkl"
+posterior_path = "./data/train_posterior_paper.pkl"
 
 def simulate_for_sbi_strict(simulator, proposal, num_simulations, max_trials=np.inf):
     num_trials, num_simulated, theta, x = (0, 0, [], [])
@@ -167,6 +172,6 @@ for i in range(len(bound_df_cluster)):
                             'fe_h': values[3]
                             }
     
-with open(f'./data/estimations_{cluster}_uniform.json', 'w') as f:
+with open(f'./data/estimations_{cluster}_paper.json', 'w') as f:
     json.dump(final_parameters, f, indent=4)
     
