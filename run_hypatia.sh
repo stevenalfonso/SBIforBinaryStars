@@ -2,7 +2,7 @@
 
 # ###### Zona de Parámetros de solicitud de recursos a SLURM ############################
 #
-#SBATCH --job-name=sbi    #Nombre del job
+#SBATCH --job-name=prior    #Nombre del job
 #SBATCH -p gpu                   #Cola a usar, Default=short (Ver colas y límites en /hpcfs/shared/README/partitions.txt)
 #SBATCH -N 1                     #Nodos requeridos, Default=1
 #SBATCH -n 1                     #Tasks paralelos, recomendado para MPI, Default=1
