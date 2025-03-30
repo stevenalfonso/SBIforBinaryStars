@@ -11,7 +11,7 @@
 #SBATCH --time=15-00:00:00       #Tiempo máximo de corrida, Default=2 horas
 #SBATCH --mail-user=je.alfonso1@uniandes.edu.co
 #SBATCH --mail-type=ALL
-#SBATCH -o posterior.%j          #Nombre de archivo de salida
+#SBATCH -o uniform_posterior.%j          #Nombre de archivo de salida
 
 
 ########################################################################################

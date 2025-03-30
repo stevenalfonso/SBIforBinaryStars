@@ -12,6 +12,7 @@ from isochrones import get_ichrone
 import pandas as pd
 import os
 
+from sbi import utils
 #from sbi.inference import SNPE as method # paper
 from sbi.inference import SNLE as method
 #from sbi.inference import SNRE as method
@@ -39,27 +40,37 @@ from torch import tensor as tt
 from sbi.utils.user_input_checks import prepare_for_sbi
 
 
-age_bounds = [0.1, 10.0]          # Gyr
+age_bounds = [0.2, 10.0]          # Gyr
 mass_bounds = [0.3, 3.0]          # M1
 metallicity_bounds = [-1.5, 0.5]  # [Fe/H] forced metallicity distribution
 
 num_simulations = 50_000
 num_samples = 10_000
 
-prior = [
-    TransformedDistribution(Exponential(rate=tt([2.3])), \
-                            AffineTransform(loc=tt([mass_bounds[0]]), scale=tt([mass_bounds[1]]))),                   # M1
-    Uniform(tt([0.]), tt([1.])),                                                                                      # q
-    Uniform(tt([age_bounds[0]]), tt([age_bounds[1]])),                                                                # age
-    TransformedDistribution(Normal(loc=tt([0.0]), scale=tt([0.5])), \
-                            AffineTransform(loc=tt([metallicity_bounds[0]]), scale=tt([metallicity_bounds[1]])))      # [Fe/H]
-    ]
+# prior = [
+#     TransformedDistribution(Exponential(rate=tt([2.3])), \
+#                             AffineTransform(loc=tt([mass_bounds[0]]), scale=tt([mass_bounds[1]]))),                   # M1
+#     Uniform(tt([0.]), tt([1.])),                                                                                      # q
+#     Uniform(tt([age_bounds[0]]), tt([age_bounds[1]])),                                                                # age
+#     TransformedDistribution(Normal(loc=tt([0.0]), scale=tt([0.5])), \
+#                             AffineTransform(loc=tt([metallicity_bounds[0]]), scale=tt([metallicity_bounds[1]])))      # [Fe/H]
+#     ]
+
+bounds = np.array([
+    [mass_bounds[0],  mass_bounds[1]],                           # M1
+    [0,      1],                                                 # q
+    [age_bounds[0],   age_bounds[1]],                            # (Gyr)
+    [metallicity_bounds[0], metallicity_bounds[1]]               # metallicity
+    ])
+
+bounds = torch.tensor(bounds)
+prior = utils.BoxUniform(low=bounds.T[0], high=bounds.T[1])
 
 sbi_simulator, sbi_prior = prepare_for_sbi(simulator, prior)
 inference = method(sbi_prior)
 
 
-posterior_path = "./data/train_posterior.pkl"
+posterior_path = "./data/train_posterior_uniform.pkl"
 
 def simulate_for_sbi_strict(simulator, proposal, num_simulations, max_trials=np.inf):
     num_trials, num_simulated, theta, x = (0, 0, [], [])
@@ -156,6 +167,6 @@ for i in range(len(bound_df_cluster)):
                             'fe_h': values[3]
                             }
     
-with open(f'./data/estimations_{cluster}.json', 'w') as f:
+with open(f'./data/estimations_{cluster}_uniform.json', 'w') as f:
     json.dump(final_parameters, f, indent=4)
     
