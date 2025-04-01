@@ -130,7 +130,7 @@ print(f'rp_mag ranges from {min_rp_mag_simulated} to {max_rp_mag_simulated}')
 data = pd.read_csv('./data/members_dat.csv') # all data
 
 list_clusters =  ['Alessi_5', 'Alessi_9', 'ASCC_101', 'BH_99', 'Blanco_1', 'IC_2602', 'NGC_2516',
-  'NGC_2547', 'NGC_3532', 'NGC_6475', 'NGC_7058', 'Pozzo_1', 'Melotte_22', 'NGC_2632', 'Trumpler_10']
+  'NGC_2547', 'NGC_3532', 'NGC_7058', 'Pozzo_1', 'Melotte_22', 'NGC_2632', 'Trumpler_10']
 
 for cluster in list_clusters:
 
