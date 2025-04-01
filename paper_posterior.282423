@@ -1,7 +1,0 @@
-Date: Sun Mar 30 09:01:25 -05 2025
-Holoviews not imported. Some visualizations will not be available.
-PyMultiNest not imported.  MultiNest fits will not work.
-2025-03-30 09:01:41.540453: I tensorflow/core/util/port.cc:113] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
-2025-03-30 09:01:42.266645: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
-To enable the following instructions: AVX2 AVX512F AVX512_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
-2025-03-30 09:01:44.971872: W tensorflow/compiler/tf2tensorrt/utils/py_utils.cc:38] TF-TRT Warning: Could not find TensorRT

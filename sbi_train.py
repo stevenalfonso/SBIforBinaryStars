@@ -55,27 +55,27 @@ num_samples = 10_000
 #                             AffineTransform(loc=tt([metallicity_bounds[0]]), scale=tt([metallicity_bounds[1]])))      # [Fe/H]
 #     ]
 
-prior = [
-        TransformedDistribution(Pareto(scale=tt([1.]), alpha=tt([5.])), AffineTransform(loc=tt([0.8]), scale=tt([1.]))), # M1
-        Uniform(tt([0.]), tt([1.])),                                                                                     # q
-        Uniform(tt([1.]), tt([10.])),                                                                                    # age
-        TransformedDistribution(Beta(tt([10.]), tt([2.])), AffineTransform(loc=tt([-1.5]), scale=tt([0.5])))             # [Fe/H]
-        ]
+# prior = [
+#         TransformedDistribution(Pareto(scale=tt([1.]), alpha=tt([5.])), AffineTransform(loc=tt([0.8]), scale=tt([1.]))), # M1
+#         Uniform(tt([0.]), tt([1.])),                                                                                     # q
+#         Uniform(tt([1.]), tt([10.])),                                                                                    # age
+#         TransformedDistribution(Beta(tt([10.]), tt([2.])), AffineTransform(loc=tt([-1.5]), scale=tt([0.5])))             # [Fe/H]
+#         ]
 
-# bounds = np.array([
-#     [mass_bounds[0],  mass_bounds[1]],                           # M1
-#     [0,      1],                                                 # q
-#     [age_bounds[0],   age_bounds[1]],                            # (Gyr)
-#     [metallicity_bounds[0], metallicity_bounds[1]]               # metallicity
-#     ])
-# bounds = torch.tensor(bounds)
-# prior = utils.BoxUniform(low=bounds.T[0], high=bounds.T[1])
+bounds = np.array([
+    [mass_bounds[0],  mass_bounds[1]],                           # M1
+    [0,      1],                                                 # q
+    [age_bounds[0],   age_bounds[1]],                            # (Gyr)
+    [metallicity_bounds[0], metallicity_bounds[1]]               # metallicity
+    ])
+bounds = torch.tensor(bounds)
+prior = utils.BoxUniform(low=bounds.T[0], high=bounds.T[1])
 
 sbi_simulator, sbi_prior = prepare_for_sbi(simulator, prior)
 inference = method(sbi_prior)
 
 
-posterior_path = "./data/train_posterior_paper.pkl"
+posterior_path = "./data/train_posterior_uniform.pkl"
 
 def simulate_for_sbi_strict(simulator, proposal, num_simulations, max_trials=np.inf):
     num_trials, num_simulated, theta, x = (0, 0, [], [])
@@ -129,49 +129,54 @@ print(f'rp_mag ranges from {min_rp_mag_simulated} to {max_rp_mag_simulated}')
 ########### Estimations per cluster
 data = pd.read_csv('./data/members_dat.csv') # all data
 
-cluster = 'NGC_6475'
-print(f'Estimations for cluster {cluster}')
-remove_stars = pd.read_csv('./data/SGs_and_RGBs_clusters_sourceid.csv')
-list_remove_stars = remove_stars['source_id'][(remove_stars['cluster'] == cluster)].to_list()
+list_clusters =  ['Alessi_5', 'Alessi_9', 'ASCC_101', 'BH_99', 'Blanco_1', 'IC_2602', 'NGC_2516',
+  'NGC_2547', 'NGC_3532', 'NGC_6475', 'NGC_7058', 'Pozzo_1', 'Melotte_22', 'NGC_2632', 'Trumpler_10']
 
-df_cluster = data[data['cluster'] == cluster]
-df_cluster = df_cluster[~df_cluster['source_id'].isin(list_remove_stars)]
+for cluster in list_clusters:
 
-df_cluster['g_mag'] = df_cluster['phot_g_mean_mag'] - 5* np.log10(1000/df_cluster['parallax']) + 5
-df_cluster['bp_mag'] = df_cluster['phot_bp_mean_mag'] - 5* np.log10(1000/df_cluster['parallax']) + 5
-df_cluster['rp_mag'] = df_cluster['phot_rp_mean_mag'] - 5* np.log10(1000/df_cluster['parallax']) + 5
+    #cluster = 'NGC_6475'
+    print(f'Estimations for cluster {cluster}')
+    remove_stars = pd.read_csv('./data/SGs_and_RGBs_clusters_sourceid.csv')
+    list_remove_stars = remove_stars['source_id'][(remove_stars['cluster'] == cluster)].to_list()
 
-print('before removing stars outside boundaries', len(df_cluster))
-print('df g ranges: ', df_cluster['g_mag'].min(), df_cluster['g_mag'].max())
-print('df bp ranges: ', df_cluster['bp_mag'].min(), df_cluster['bp_mag'].max())
-print('df rp ranges: ', df_cluster['rp_mag'].min(), df_cluster['rp_mag'].max())
+    df_cluster = data[data['cluster'] == cluster]
+    df_cluster = df_cluster[~df_cluster['source_id'].isin(list_remove_stars)]
+
+    df_cluster['g_mag'] = df_cluster['phot_g_mean_mag'] - 5* np.log10(1000/df_cluster['parallax']) + 5
+    df_cluster['bp_mag'] = df_cluster['phot_bp_mean_mag'] - 5* np.log10(1000/df_cluster['parallax']) + 5
+    df_cluster['rp_mag'] = df_cluster['phot_rp_mean_mag'] - 5* np.log10(1000/df_cluster['parallax']) + 5
+
+    print('before removing stars outside boundaries', len(df_cluster))
+    print('df g ranges: ', df_cluster['g_mag'].min(), df_cluster['g_mag'].max())
+    print('df bp ranges: ', df_cluster['bp_mag'].min(), df_cluster['bp_mag'].max())
+    print('df rp ranges: ', df_cluster['rp_mag'].min(), df_cluster['rp_mag'].max())
 
 
-cond_g = (df_cluster['g_mag'] >= min_g_mag_simulated) & (df_cluster['g_mag'] <= max_g_mag_simulated)
-cond_bp = (df_cluster['bp_mag'] >= min_bp_mag_simulated) & (df_cluster['bp_mag'] <= max_bp_mag_simulated)
-cond_rp = (df_cluster['rp_mag'] >= min_rp_mag_simulated) & (df_cluster['rp_mag'] <= max_rp_mag_simulated)
-bound_df_cluster = df_cluster[cond_g & cond_bp & cond_rp].reset_index(drop=True)
-print('after removing stars outside boundaries', len(bound_df_cluster))
+    cond_g = (df_cluster['g_mag'] >= min_g_mag_simulated) & (df_cluster['g_mag'] <= max_g_mag_simulated)
+    cond_bp = (df_cluster['bp_mag'] >= min_bp_mag_simulated) & (df_cluster['bp_mag'] <= max_bp_mag_simulated)
+    cond_rp = (df_cluster['rp_mag'] >= min_rp_mag_simulated) & (df_cluster['rp_mag'] <= max_rp_mag_simulated)
+    bound_df_cluster = df_cluster[cond_g & cond_bp & cond_rp].reset_index(drop=True)
+    print('after removing stars outside boundaries', len(bound_df_cluster))
 
-L = 4 # number of parameters
-num_injections = len(bound_df_cluster)
-parameters = np.empty((num_injections, num_samples, L))
-# g_mag, bp_mag, rp_mag
+    L = 4 # number of parameters
+    num_injections = len(bound_df_cluster)
+    parameters = np.empty((num_injections, num_samples, L))
+    # g_mag, bp_mag, rp_mag
 
-for i in tqdm(range(num_injections)):
-    observation_per_star = bound_df_cluster[['g_mag','bp_mag','rp_mag']].to_numpy()[i]
-    parameters[i] = posterior.sample((num_samples,), x=torch.tensor(observation_per_star), show_progress_bars=False)
-    
+    for i in tqdm(range(num_injections)):
+        observation_per_star = bound_df_cluster[['g_mag','bp_mag','rp_mag']].to_numpy()[i]
+        parameters[i] = posterior.sample((num_samples,), x=torch.tensor(observation_per_star), show_progress_bars=False)
+        
 
-final_parameters = {}
-for i in range(len(bound_df_cluster)):
-    values = np.percentile(parameters[i], 50, axis=0)
-    final_parameters[i] = {'mass': values[0],
-                            'q': values[1],
-                            'age': values[2],
-                            'fe_h': values[3]
-                            }
-    
-with open(f'./data/estimations_{cluster}_paper.json', 'w') as f:
-    json.dump(final_parameters, f, indent=4)
+    final_parameters = {}
+    for i in range(len(bound_df_cluster)):
+        values = np.percentile(parameters[i], 50, axis=0)
+        final_parameters[i] = {'mass': values[0],
+                                'q': values[1],
+                                'age': values[2],
+                                'fe_h': values[3]
+                                }
+        
+    with open(f'./data/estimations_{cluster}_paper.json', 'w') as f:
+        json.dump(final_parameters, f, indent=4)
     
